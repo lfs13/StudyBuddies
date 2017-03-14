@@ -8,8 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 
@@ -152,8 +155,10 @@ public class MainActivity extends AppCompatActivity {
      * to be implemented
      * bring up form with group elements, pass into constructor(will need to add one with all relevant parameters)
      */
-    public void addGroup(){
+    public void addGroup(View v){
         //this is the add buttons onCLick method as defined in main_activity.xml
+        Intent createGroup = new Intent(this, CreateGroupActivity.class);
+        startActivity(createGroup);
         //TODO
     }
 
