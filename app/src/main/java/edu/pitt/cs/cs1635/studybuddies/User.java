@@ -35,6 +35,9 @@ public class User {
         favorites.add(g);
     }
 
+    public ArrayList<Group> getFavorites(){
+        return favorites;
+    }
     /**
      * return username
      * @return string representation of user's name
