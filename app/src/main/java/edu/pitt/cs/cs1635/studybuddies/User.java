@@ -1,5 +1,10 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +43,10 @@ public class User {
     public ArrayList<Group> getFavorites(){
         return favorites;
     }
+
+    public String getName(){ return name; }
+
+
     /**
      * return username
      * @return string representation of user's name
@@ -46,4 +55,5 @@ public class User {
     public String toString(){
         return name;
     }
+    
 }

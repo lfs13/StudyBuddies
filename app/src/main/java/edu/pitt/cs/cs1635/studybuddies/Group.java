@@ -1,5 +1,7 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.widget.Button;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -26,23 +28,22 @@ public class Group implements Serializable{
         return name;
     }
 
-    public void setName(String n){
-        name = n;
-    }
-    public void setProfessor(String p){
-        professor = p;
-    }
+
     public String getName(){
         return name;
+    }
+    public void setName(String n){
+        name = n;
     }
     public int getGID(){
         return gid;
     }
-    public String getProfessor(){
-        return professor;
-    }
+
     public int getNumMembers(){
         return numMembers;
+    }
+    public void setNumMembers(int n){
+        numMembers = n;
     }
     public void addMember(){
         numMembers++;
@@ -50,4 +51,20 @@ public class Group implements Serializable{
     public void removeMember(){
         numMembers--;
     }
+
+    public int getMaxMembers(){
+        return maxMembers;
+    }
+    public void setMaxMembers(int n){
+        maxMembers = n;
+    }
+
+    public void setProfessor(String p){
+        professor = p;
+    }
+    public String getProfessor(){
+        return professor;
+    }
+
+
 }

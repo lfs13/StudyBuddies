@@ -2,12 +2,15 @@ package edu.pitt.cs.cs1635.studybuddies;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Parcel;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItem;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,11 +19,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.os.Parcel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     User currentUser;
     GroupList groups = new GroupList();
 
@@ -44,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         //set list of buttons to groups
         updateAvailableGroups(groups.getGroupArrayList());
+
+        //set up the dummy group buttons
+        setDummyGroupButtons();
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -152,6 +160,54 @@ public class MainActivity extends AppCompatActivity {
             updateAvailableGroups(filtered);
         }
     }
+
+
+    /**
+     * Make the dummy group buttons clickable
+     */
+    private void setDummyGroupButtons(){
+
+        LinearLayout groupList = (LinearLayout) findViewById(R.id.group_list);
+
+        for(Object obj: groupList.getTouchables()){
+            if (obj instanceof Button) {
+                Button tempButton = (Button) obj;
+                tempButton.setClickable(true);
+                tempButton.setFocusable(true);
+                tempButton.setOnClickListener(this);
+
+            }
+        }
+    }
+
+
+    /**
+     * Create the appropriate behavior for the dummy buttons upon being clicked
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+
+        ArrayList<Group> g_list = groups.getGroupArrayList();
+
+        for(Group g : g_list){
+
+            if ( v instanceof Button) {
+
+                String candidateBtnText = g.getName().toLowerCase().trim();
+                String viewText = ((Button) v).getText().toString().toLowerCase().trim();
+
+                if(candidateBtnText.equals(viewText)){
+
+                    Intent intent = new Intent(this, GroupHome.class);
+                    GroupHome.setGroup(g);
+                    startActivity(intent);
+
+                }
+            }
+        }
+    }
+
 
     /**
      * to be implemented
