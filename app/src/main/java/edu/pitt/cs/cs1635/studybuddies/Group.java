@@ -32,6 +32,9 @@ public class Group implements Serializable{
     public void setProfessor(String p){
         professor = p;
     }
+    public String getName(){
+        return name;
+    }
     public int getGID(){
         return gid;
     }

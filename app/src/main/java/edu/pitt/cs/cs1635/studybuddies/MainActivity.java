@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     updateAvailableGroups(groups.getGroupArrayList());
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setMessage("Group has been created")
+                            .setMessage(newGroup.getName() + " created!")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
