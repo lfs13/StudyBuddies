@@ -1,6 +1,8 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItem;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     User currentUser;
-    ArrayList<Group> groups = new ArrayList<Group>();
+    GroupList groups = new GroupList();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         createDummyUser();
 
         //set list of buttons to groups
-        updateAvailableGroups(groups);
+        updateAvailableGroups(groups.getGroupArrayList());
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void filterGroups(String s){
         if(s.length()==0){
-            updateAvailableGroups(groups);
+            updateAvailableGroups(groups.getGroupArrayList());
         }
         else {
             ArrayList<Group> filtered = new ArrayList<>();
@@ -158,9 +160,31 @@ public class MainActivity extends AppCompatActivity {
     public void addGroup(View v){
         //this is the add buttons onCLick method as defined in main_activity.xml
         Intent createGroup = new Intent(this, CreateGroupActivity.class);
-        startActivity(createGroup);
-        //TODO
+        startActivityForResult(createGroup, 1);
+
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                Bundle b = data.getExtras();
+                if(b != null) {
+                    Group newGroup = (Group)b.getSerializable("newGroup");
+                    groups.add(newGroup);
+                    updateAvailableGroups(groups.getGroupArrayList());
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage("Group has been created")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
+                                }
+
+                            })
+                            .show();
+                }
+            }
+        }
+    }
 }
