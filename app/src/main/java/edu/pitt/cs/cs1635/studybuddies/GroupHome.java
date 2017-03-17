@@ -55,7 +55,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
 
         //get the group name and number of member in the library
         String name = group.getName();
-        String numOfMembers = group.getNumMembers()+"";
+        String numOfMembers = group.getNumMembers() + "";
 
         //set the group name and number of member in the library
         groupNameDisp.setText(name);
@@ -81,7 +81,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.fav_button) {
+        if (id == R.id.fav_button) {
             Intent intent = new Intent(this, FavoritesActivity.class);
             ArrayList<String> favorites = new ArrayList<>();
             for (Group g : user.getFavorites()) {
@@ -89,6 +89,11 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
             }
             intent.putExtra("favorites", favorites);
             startActivity(intent);
+            return true;
+        }
+        if (id == R.id.home_button) {
+            Intent in = new Intent(this, MainActivity.class);
+            startActivity(in);
             return true;
         }
 
@@ -107,23 +112,23 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     //public static void setQList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
 
     /**
-    * Method for when the buttons are clicked
-    *
-    * @param v
-    */
-       @Override
-   public void onClick(View v) {
-       if (v.getId() == R.id.studyGroupsButton) {
-           Intent intent = new Intent(this, GroupHome.class);
+     * Method for when the buttons are clicked
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.studyGroupsButton) {
+            //need an intent to take to the activity with the studygroups
 
-           GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
-           gQLA.setQList(group.getQuestionList());
+        } else if (v.getId() == R.id.groupQsButton) {
+            Intent intent = new Intent(this, GroupQuestionListActivity.class);
 
-           startActivity(intent);
+            GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
+            gQLA.setQList(group.getQuestionList());
 
-           //need an intent to take to the activity with the studygroups
-       } else if (v.getId() == R.id.groupQsButton) {
-}              //need an intent to take to the activty with the groupquestions
-       }
-   }
+            startActivity(intent);
+        }
+    }
+}
 

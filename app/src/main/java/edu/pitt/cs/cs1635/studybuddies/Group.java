@@ -15,6 +15,8 @@ public class Group implements Serializable{
     int gid;
     int numMembers = 0;
     int maxMembers = 0;
+    private static ArrayList<GroupQuestion> QuestionList = new ArrayList<>() ;
+
 
     public Group(){
     }
@@ -66,5 +68,7 @@ public class Group implements Serializable{
         return professor;
     }
 
-
+    public static ArrayList<GroupQuestion> getQuestionList() {
+        return QuestionList;
+    }
 }

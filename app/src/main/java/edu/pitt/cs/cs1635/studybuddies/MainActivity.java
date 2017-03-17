@@ -230,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Group newGroup = (Group)b.getSerializable("newGroup");
                     groups.add(newGroup);
                     updateAvailableGroups(groups.getGroupArrayList());
+                    setDummyGroupButtons();
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setMessage(newGroup.getName() + " created!")

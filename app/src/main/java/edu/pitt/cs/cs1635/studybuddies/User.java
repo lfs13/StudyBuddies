@@ -38,6 +38,7 @@ public class User {
      */
     public void addFavorite(Group g){
         favorites.add(g);
+        g.addMember();
     }
 
     public ArrayList<Group> getFavorites(){
