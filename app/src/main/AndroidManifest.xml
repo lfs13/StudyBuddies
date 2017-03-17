@@ -31,6 +31,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.MainActivity" />
         </activity>
+        <activity
+            android:name=".GroupQuestionListActivity"
+            android:label="@string/title_activity_group_questions"
+            android:parentActivityName=".GroupHome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.pitt.cs.cs1635.studybuddies.GroupHome" />
+        </activity>
     </application>
 
 </manifest>
