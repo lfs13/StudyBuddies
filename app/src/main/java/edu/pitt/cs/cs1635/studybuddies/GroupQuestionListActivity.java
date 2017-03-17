@@ -1,55 +1,198 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
-import android.app.Activity;
-import android.app.ListActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class GroupQuestionListActivity extends AppCompatActivity {
-    private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>() ;
+public class GroupQuestionListActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>();
+    private static User user;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_group_questions);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //create dummy questions
+        createQuestions();
 
-        /*
-        Working on this - adapting from favorites activity
-         */
-      //  ListView qs = (ListView) findViewById(R.id.Question_list);
-       //   Bundle b = getIntent().getExtras();
-      //  ArrayList<String> favorites = (ArrayList<String>) b.getSerializable("favorites");
-     //   ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, currQuestionList);
-     ///   favs.setAdapter(itemsAdapter);
+        //set list of buttons to groups
+        updateAvailableQuestions(currQuestionList);
+
+        //set up the dummy group buttons
+        setDummyQuestionButtons();
+
+        final EditText search = (EditText) findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterGroupQuestions(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+        });
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+        int id = item.getItemId();
+
+        if (id == R.id.fav_button) {
+            Intent intent = new Intent(this, FavoritesActivity.class);
+            ArrayList<String> favorites = new ArrayList<>();
+            for (Group g : user.getFavorites()) {
+                favorites.add(g.toString());
+            }
+            intent.putExtra("favorites", favorites);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.home_button){
+            Intent in = new Intent(this, MainActivity.class);
+            startActivity(in);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.navbar, menu);
+        return true;
+    }
+
+    public static void setUser(User currentUser) {
+        user = currentUser;
+    }
+
     public static void setQList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
+
+
+    /**
+     * Hard code some questions
+     */
+    public void createQuestions(){
+        currQuestionList.add(new GroupQuestion("What is the meaning of life"));
+        currQuestionList.add(new GroupQuestion("Why is the sky blue"));
+    }
+
+    /**
+     * Update UI to reflect filtered questions
+     * @param updatedQuestions filtered list of questions
+     */
+    public void updateAvailableQuestions(ArrayList<GroupQuestion> updatedQuestions){
+
+        LinearLayout qList = (LinearLayout) findViewById(R.id.question_list);
+
+        qList.removeAllViews();
+
+        for(int i = 0; i < updatedQuestions.size(); i++){
+            Button tempButton = new Button(this);
+            GroupQuestion tempGroupQ = updatedQuestions.get(i);
+            tempButton.setText(tempGroupQ.getQuestion());
+            tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            qList.addView(tempButton);
+        }
+    }
+
+    /**
+     * create filtered question list and send to update method
+     * @param s filter string
+     */
+    public void filterGroupQuestions(String s){
+        if(s.length()==0){
+            updateAvailableQuestions(currQuestionList);
+        }
+        else {
+            ArrayList<GroupQuestion> filtered = new ArrayList<>();
+            s = s.toLowerCase();
+            for (int i = 0; i < currQuestionList.size(); i++) {
+                GroupQuestion temp = currQuestionList.get(i);
+                if (temp.toString().toLowerCase().contains(s)) {
+                    filtered.add(temp);
+                }
+            }
+            updateAvailableQuestions(filtered);
+        }
+    }
+
+
+    /**
+     * Make the dummy question buttons clickable
+     */
+    private void setDummyQuestionButtons(){
+
+        LinearLayout QuestionList = (LinearLayout) findViewById(R.id.question_list);
+
+        for(Object obj: QuestionList.getTouchables()){
+            if (obj instanceof Button) {
+                Button tempButton = (Button) obj;
+                tempButton.setClickable(true);
+                tempButton.setFocusable(true);
+                tempButton.setOnClickListener(this);
+
+            }
+        }
+    }
+
+
+    /**
+     * Create the appropriate behavior for the dummy buttons upon being clicked
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+
+        ArrayList<GroupQuestion> g_list = currQuestionList;
+
+        for(GroupQuestion g : g_list){
+
+            if ( v instanceof Button) {
+
+                String candidateBtnText = g.getQuestion().toLowerCase().trim();
+                String viewText = ((Button) v).getText().toString().toLowerCase().trim();
+
+                if(candidateBtnText.equals(viewText)){
+
+                    /**
+                     * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
+                     */
+
+                }
+            }
+        }
+    }
+
+
+    /**
+     * ADD A QUESTION PAGE TO BE IMPLEMENTED
+     */
 
 
 }

@@ -126,6 +126,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
 
             GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
             gQLA.setQList(group.getQuestionList());
+            gQLA.setUser(user);
 
             startActivity(intent);
         }

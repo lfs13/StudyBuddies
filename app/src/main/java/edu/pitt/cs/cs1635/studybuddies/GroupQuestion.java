@@ -7,8 +7,14 @@ import java.util.ArrayList;
  */
 public class GroupQuestion {
 
-    //constructor for the class
-    public GroupQuestion() {
+
+    //constructors for the class
+    public GroupQuestion(String q) {
+        question = q;
+    }
+
+    public GroupQuestion(){
+
     }
 
     //Has the question been answered yet
