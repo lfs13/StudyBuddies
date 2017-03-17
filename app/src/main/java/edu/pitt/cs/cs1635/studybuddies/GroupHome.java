@@ -14,6 +14,7 @@ import android.support.v4.app.NavUtils;
 import android.widget.TextView;
 
 import java.io.Console;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -22,6 +23,11 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     private Button studyGroupListButton;
     private Button groupQButton;
     private static Group group;
+    private static User user;
+    //private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>() ;
+    private TextView groupNameDisp;
+    private TextView numMemsDisp;
+
 
     Intent inIntent = getIntent();
 
@@ -43,6 +49,18 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         studyGroupListButton.setOnClickListener(GroupHome.this);
         groupQButton.setOnClickListener(GroupHome.this);
 
+        //get the group name and number of members in the library views
+        groupNameDisp = (TextView) findViewById(R.id.groupNameHeader);
+        numMemsDisp = (TextView) findViewById(R.id.textView2);
+
+        //get the group name and number of member in the library
+        String name = group.getName();
+        String numOfMembers = group.getNumMembers()+"";
+
+        //set the group name and number of member in the library
+        groupNameDisp.setText(name);
+        numMemsDisp.setText(numOfMembers);
+
     }
 
     @Override
@@ -63,40 +81,30 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         if (id == R.id.action_settings) {
             return true;
         }
-//        if(id == R.id.fav_button) {
-//            Intent intent = new Intent(this, FavoritesActivity.class);
-//            ArrayList<String> favorites = new ArrayList<>();
-//            for (Group g : userObj.getFavorites()) {
-//                favorites.add(g.toString());
-//            }
-//            intent.putExtra("favorites", favorites);
-//            startActivity(intent);
-//            return true;
-//        }
+        if(id == R.id.fav_button) {
+            Intent intent = new Intent(this, FavoritesActivity.class);
+            ArrayList<String> favorites = new ArrayList<>();
+            for (Group g : user.getFavorites()) {
+                favorites.add(g.toString());
+            }
+            intent.putExtra("favorites", favorites);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void setUp(Group gr){
-
-        String name = gr.getName();
-        int numOfMembers = gr.getNumMembers();
-
-        TextView groupNameDisp = (TextView) findViewById(R.id.groupNameHeader);
-        groupNameDisp.setText(name);
-
-        TextView numMemsDisp = (TextView) findViewById(R.id.textView2);
-        numMemsDisp.setText(numOfMembers);
-
+    public static void setUser(User currentUser) {
+        user = currentUser;
     }
 
 
     public static void setGroup(Group currentGroup) {
-
         group = currentGroup;
-        Log.w("name", group.getName());
-
     }
+
+    //public static void setQList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
 
     /**
     * Method for when the buttons are clicked
@@ -106,6 +114,13 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
        @Override
    public void onClick(View v) {
        if (v.getId() == R.id.studyGroupsButton) {
+           Intent intent = new Intent(this, GroupHome.class);
+
+           GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
+           gQLA.setQList(group.getQuestionList());
+
+           startActivity(intent);
+
            //need an intent to take to the activity with the studygroups
        } else if (v.getId() == R.id.groupQsButton) {
 }              //need an intent to take to the activty with the groupquestions
