@@ -1,20 +1,15 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.view.Window;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.widget.TextView;
 
-import java.io.Console;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -109,7 +104,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         group = currentGroup;
     }
 
-    //public static void setQList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
+    //public static void setStudyGroupList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
 
     /**
      * Method for when the buttons are clicked
@@ -119,7 +114,14 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.studyGroupsButton) {
-            //need an intent to take to the activity with the studygroups
+
+            Intent intent = new Intent(this, StudyGroupList.class);
+
+            StudyGroupList sGL = new StudyGroupList();
+            sGL.setStudyGroupList(group.getStudyGroupList());
+            sGL.setUser(user);
+
+            startActivity(intent);
 
         } else if (v.getId() == R.id.groupQsButton) {
             Intent intent = new Intent(this, GroupQuestionListActivity.class);
