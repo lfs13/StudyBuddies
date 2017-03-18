@@ -134,7 +134,7 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
             s = s.toLowerCase();
             for (int i = 0; i < currQuestionList.size(); i++) {
                 GroupQuestion temp = currQuestionList.get(i);
-                if (temp.toString().toLowerCase().contains(s)) {
+                if (temp.getQuestion().toLowerCase().contains(s)) {
                     filtered.add(temp);
                 }
             }

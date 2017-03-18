@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent(this, GroupHome.class);
                     GroupHome.setGroup(g);
                     GroupHome.setUser(currentUser);
-                   // GroupHome.setQList(g.getQuestionList());
+                   // GroupHome.setStudyGroupList(g.getQuestionList());
                     startActivity(intent);
 
                 }
