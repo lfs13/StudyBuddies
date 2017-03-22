@@ -26,6 +26,23 @@ public class StudyGroup {
         this.name = name;
     }
 
+    public int getTime()
+    {
+        return time;
+    }
 
+    public void setTime(int t)
+    {
+        this.time = t;
+    }
 
+    public int getFloor()
+    {
+        return floor;
+    }
+
+    public void setFloor(int f)
+    {
+        this.floor = f;
+    }
 }

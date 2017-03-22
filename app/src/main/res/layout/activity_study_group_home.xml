@@ -33,7 +33,7 @@
         android:id="@+id/chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="left"
         android:paddingBottom="200dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -49,7 +49,7 @@
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="left"
         android:layout_margin="10dp"
         android:padding="25dp"
         android:text="Submit" />

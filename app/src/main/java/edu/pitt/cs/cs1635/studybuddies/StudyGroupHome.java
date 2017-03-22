@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class StudyGroupHome extends AppCompatActivity {
+public class StudyGroupHome extends AppCompatActivity implements View.OnClickListener{
 
     private Button submitButton;
     private TextView studyGroupName;
@@ -21,6 +21,7 @@ public class StudyGroupHome extends AppCompatActivity {
     private TextView timeRemaining;
     private TextView chat;
     private EditText submitChat;
+    private String chatText = "";
 
     Intent inIntent = getIntent();
 
@@ -41,25 +42,15 @@ public class StudyGroupHome extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submitButton);
 
 
-        studyGroupName.setText("Hi");
+        studyGroupName.setText("Homework Help");
         floor.setText("Floor 3");
-        timeRemaining.setText("2 hours");
+        timeRemaining.setText("2 hours remaining");
+        chatText = chatText + "User1 has joined Homework Help";
+        chat.setText(chatText);
 
-//        //set onClick listeners for the buttons
-//        studyGroupListButton.setOnClickListener(StudyGroupHome.this);
-//        groupQButton.setOnClickListener(StudyGroupHome.this);
-//
-//        //get the group name and number of members in the library views
-//        groupNameDisp = (TextView) findViewById(R.id.groupNameHeader);
-//        numMemsDisp = (TextView) findViewById(R.id.textView2);
-//
-//        //get the group name and number of member in the library
-//        String name = group.getName();
-//        String numOfMembers = group.getNumMembers() + "";
-//
-//        //set the group name and number of member in the library
-//        groupNameDisp.setText(name);
-//        numMemsDisp.setText(numOfMembers);
+        //set onClick listeners for the buttons
+        submitButton.setOnClickListener(StudyGroupHome.this);
+
     }
 
     @Override
@@ -100,42 +91,8 @@ public class StudyGroupHome extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public static void setUser(User currentUser) {
-//        user = currentUser;
-//    }
-//
-//
-//    public static void setGroup(Group currentGroup) {
-//        group = currentGroup;
-//    }
+    @Override
+    public void onClick(View v) {
+    }
 
-    //public static void setStudyGroupList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
-
-    /**
-     * Method for when the buttons are clicked
-     *
-     * @param v
-     */
-//    @Override
-//    public void onClick(View v) {
-//        if (v.getId() == R.id.studyGroupsButton) {
-//
-//            Intent intent = new Intent(this, StudyGroupList.class);
-//
-//            StudyGroupList sGL = new StudyGroupList();
-//            sGL.setStudyGroupList(group.getStudyGroupList());
-//            sGL.setUser(user);
-//
-//            startActivity(intent);
-//
-//        } else if (v.getId() == R.id.groupQsButton) {
-//            Intent intent = new Intent(this, GroupQuestionListActivity.class);
-//
-//            GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
-//            gQLA.setQList(group.getQuestionList());
-//            gQLA.setUser(user);
-//
-//            startActivity(intent);
-//        }
-//    }
 }
