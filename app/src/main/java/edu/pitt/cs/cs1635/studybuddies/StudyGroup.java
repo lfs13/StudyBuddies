@@ -5,12 +5,16 @@ package edu.pitt.cs.cs1635.studybuddies;
  */
 public class StudyGroup {
     private String name;
+    private int time;
+    private int floor;
 
     public StudyGroup() {
     }
 
     public StudyGroup(String n) {
         name = n;
+        time = 2;
+        floor = 3;
     }
 
 

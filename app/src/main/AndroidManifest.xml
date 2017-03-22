@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.pitt.cs.cs1635.studybuddies" >
+    package="edu.pitt.cs.cs1635.studybuddies">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" >
+            android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
         <activity
             android:name=".GroupHome"
             android:label="@string/title_activity_group_home"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.MainActivity" />
@@ -34,7 +34,7 @@
         <activity
             android:name=".GroupQuestionListActivity"
             android:label="@string/title_activity_group_questions"
-            android:parentActivityName=".GroupHome" >
+            android:parentActivityName=".GroupHome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.GroupHome" />
@@ -42,11 +42,20 @@
         <activity
             android:name=".StudyGroupList"
             android:label="@string/title_activity_study_group_list"
-            android:parentActivityName=".GroupHome" >
+            android:parentActivityName=".GroupHome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.GroupHome" />
         </activity>
+        <activity
+            android:name=".StudyGroupHome"
+            android:label="StudyGroupHome"
+            android:parentActivityName=".StudyGroupList">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.pitt.cs.cs1635.studybuddies.StudyGroupList" />
+        </activity>
+
     </application>
 
 </manifest>

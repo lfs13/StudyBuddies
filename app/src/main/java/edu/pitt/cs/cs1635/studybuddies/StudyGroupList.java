@@ -177,9 +177,8 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
                     if(candidateBtnText.equals(viewText)){
 
-                        /**
-                         * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
-                         */
+                        Intent intent = new Intent(this, StudyGroupHome.class);
+                        startActivity(intent);
 
                     }
                 }
