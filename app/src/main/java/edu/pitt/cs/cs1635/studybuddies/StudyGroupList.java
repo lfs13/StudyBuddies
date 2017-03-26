@@ -19,6 +19,8 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
     private static ArrayList<StudyGroup> currStudyGroupList = new ArrayList<>();
     private static User user;
+    private static Group group;
+    //private static int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,13 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_study_group_list);
 
         //create dummy studyGroups
-        createStudyGroups();
+        createDummyStudyGroups();
 
         //set list of buttons to groups
         updateAvailableStudyGroups(currStudyGroupList);
 
         //set up the dummy group buttons
-        setDummyStudyGroupButtons();
+      //  setDummyStudyGroupButtons();
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -90,13 +92,22 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
         public static void setStudyGroupList(ArrayList<StudyGroup> qList){ currStudyGroupList = qList;}
 
+        public static void setGroup(Group currentGroup) {
+        group = currentGroup;
+    }
 
-        /**
+
+
+    /**
          * Hard code some questions
          */
-        public void createStudyGroups(){
-            currStudyGroupList.add(new StudyGroup("Homework help"));
-            currStudyGroupList.add(new StudyGroup("Cram for exam"));
+        public void createDummyStudyGroups(){
+            if(group.c1 <=0){
+                currStudyGroupList.add(new StudyGroup("Homework help"));
+                currStudyGroupList.add(new StudyGroup("Cram for exam"));
+                group.c1++;
+            }
+
         }
 
         /**
@@ -115,6 +126,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                 tempButton.setText(tempStudyGroup.getName());
                 tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 qList.addView(tempButton);
+                setDummyStudyGroupButtons();
             }
         }
 
@@ -168,9 +180,8 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
             ArrayList<StudyGroup> g_list = currStudyGroupList;
 
-            for(StudyGroup g : g_list){
-
-                if ( v instanceof Button) {
+            if ( v instanceof Button) {
+                for(StudyGroup g : g_list){
 
                     String candidateBtnText = g.getName().toLowerCase().trim();
                     String viewText = ((Button) v).getText().toString().toLowerCase().trim();
@@ -183,6 +194,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             }
+
         }
 
 

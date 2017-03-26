@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    User currentUser;
-    GroupList groups = new GroupList();
+    private static User currentUser;
+    private static GroupList groups = new GroupList();
+    private static int count = 0;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,24 +80,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Hard code some groups
      */
     public void createGroups(){
-        groups.add(new Group("CS007"));
-        groups.add(new Group("CS401"));
-        groups.add(new Group("CS441"));
-        groups.add(new Group("CS445"));
-        groups.add(new Group("CS447"));
-        groups.add(new Group("CS449"));
-        groups.add(new Group("CS1501"));
-        groups.add(new Group("CS1550"));
-        groups.add(new Group("CS1555"));
-        groups.add(new Group("CS1635"));
+        if(count <= 0) {
+            groups.add(new Group("CS007"));
+            groups.add(new Group("CS401"));
+            groups.add(new Group("CS441"));
+            groups.add(new Group("CS445"));
+            groups.add(new Group("CS447"));
+            groups.add(new Group("CS449"));
+            groups.add(new Group("CS1501"));
+            groups.add(new Group("CS1550"));
+            groups.add(new Group("CS1555"));
+            groups.add(new Group("CS1635"));
+            count++;
+        }
+
     }
 
     public void createDummyUser(){
         User newUser = new User("Dummy");
-        newUser.addFavorite(groups.get(3));
-        newUser.addFavorite(groups.get(6));
-        newUser.addFavorite(groups.get(9));
         currentUser = newUser;
+
+        currentUser.addFavorite(groups.get(3));
+        currentUser.addFavorite(groups.get(6));
+        currentUser.addFavorite(groups.get(9));
+        currentUser.c++;
     }
 
     @Override
@@ -137,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tempButton.setText(tempGroup.toString());
             tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             groupList.addView(tempButton);
+            setDummyGroupButtons();
         }
     }
 

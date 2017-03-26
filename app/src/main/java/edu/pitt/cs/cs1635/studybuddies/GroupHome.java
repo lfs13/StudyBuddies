@@ -120,6 +120,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
             StudyGroupList sGL = new StudyGroupList();
             sGL.setStudyGroupList(group.getStudyGroupList());
             sGL.setUser(user);
+            sGL.setGroup(group);
 
             startActivity(intent);
 
@@ -129,6 +130,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
             GroupQuestionListActivity gQLA = new GroupQuestionListActivity();
             gQLA.setQList(group.getQuestionList());
             gQLA.setUser(user);
+            gQLA.setGroup(group);
 
             startActivity(intent);
         }

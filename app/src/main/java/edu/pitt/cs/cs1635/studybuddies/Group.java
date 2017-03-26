@@ -15,6 +15,8 @@ public class Group implements Serializable{
     int maxMembers = 0;
     private ArrayList<GroupQuestion> questionList = new ArrayList<>();
     private ArrayList<StudyGroup> studyGroupList = new ArrayList<>();
+    int c1 = 0;
+    int c2 = 0;
 
 
     public Group(){

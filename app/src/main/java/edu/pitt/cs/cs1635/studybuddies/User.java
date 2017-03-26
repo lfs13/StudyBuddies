@@ -13,7 +13,10 @@ import java.util.ArrayList;
 
 public class User {
     String name = "";
-    ArrayList<Group> favorites;
+    static ArrayList<Group> Gfavorites;
+    static int c = 0;
+
+
 
     /**
      * Constructor
@@ -21,7 +24,7 @@ public class User {
      */
     public User(String n){
         name = n;
-        favorites = new ArrayList<>();
+        Gfavorites = new ArrayList<>();
     }
 
     /**
@@ -37,12 +40,14 @@ public class User {
      * @param g group to be added to favorites
      */
     public void addFavorite(Group g){
-        favorites.add(g);
-        g.addMember();
+        Gfavorites.add(g);
+        if(c <= 0 ){
+            g.addMember();
+        }
     }
 
     public ArrayList<Group> getFavorites(){
-        return favorites;
+        return Gfavorites;
     }
 
     public String getName(){ return name; }

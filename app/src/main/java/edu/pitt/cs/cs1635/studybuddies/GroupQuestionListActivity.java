@@ -1,16 +1,13 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +18,8 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
 
     private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>();
     private static User user;
+    private static Group group;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,13 +92,23 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
 
     public static void setQList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
 
+    public static void setGroup(Group currentGroup) {
+        group = currentGroup;
+    }
+
+
 
     /**
      * Hard code some questions
      */
     public void createQuestions(){
-        currQuestionList.add(new GroupQuestion("What is the meaning of life"));
-        currQuestionList.add(new GroupQuestion("Why is the sky blue"));
+        if(group.c2 <= 0){
+            currQuestionList.add(new GroupQuestion("Why is the sky blue?"));
+            currQuestionList.add(new GroupQuestion("What is the meaning of life"));
+            group.c2++;
+        }
+
+
     }
 
     /**
@@ -189,10 +198,18 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
         }
     }
 
-
     /**
      * ADD A QUESTION PAGE TO BE IMPLEMENTED
      */
+    public void addGroup(View v){
+        //this is the add buttons onCLick method as defined in main_activity.xml
+        Intent createGroup = new Intent(this, GroupQuestionListActivity.class);
+       // startActivityForResult(createGroup, 1);
+        startActivity(createGroup);
+
+    }
+
+
 
 
 }
