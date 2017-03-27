@@ -1,12 +1,15 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import java.io.Serializable;
+
 /**
  * Created by Emily on 3/17/17.
  */
-public class StudyGroup {
+public class StudyGroup implements Serializable {
     private String name;
     private String time;
-    private int floor;
+    private String floor;
+    private String duration;
 
     public StudyGroup() {
     }
@@ -14,9 +17,14 @@ public class StudyGroup {
     public StudyGroup(String n) {
         name = n;
         time = "2";
-        floor = 3;
+        floor = "3";
     }
-
+    public StudyGroup(String n, String f, String t, String d) {
+        name = n;
+        time = t;
+        floor = f;
+        duration = d;
+    }
 
     public String getName() {
         return name;
@@ -36,13 +44,17 @@ public class StudyGroup {
         this.time = t;
     }
 
-    public int getFloor()
+    public String getFloor()
     {
         return floor;
     }
 
-    public void setFloor(int f)
+    public void setFloor(String f)
     {
         this.floor = f;
     }
+
+    public void setDuration(String d){this.duration = d;}
+
+    public String getDuration(){return duration;}
 }

@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_action_new"
-            android:onClick="addQuestion"
+            android:onClick="addStudyGroup"
             android:background="#00FFFFFF"/>
     </LinearLayout>
 

@@ -24,6 +24,9 @@
             android:name=".CreateGroupActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".CreateStudyGroupActivity"
+            android:parentActivityName=".StudyGroupList" />
+        <activity
             android:name=".GroupHome"
             android:label="@string/title_activity_group_home"
             android:parentActivityName=".MainActivity">

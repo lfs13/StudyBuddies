@@ -1,7 +1,9 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -196,7 +198,36 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
             }
 
         }
+    public void addStudyGroup(View v){
+        //this is the add buttons onCLick method as defined in main_activity.xml
+        Intent createStudyGroup = new Intent(this, CreateStudyGroupActivity.class);
+        startActivityForResult(createStudyGroup, 1);
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                Bundle b = data.getExtras();
+                if(b != null) {
+                    StudyGroup newGroup = (StudyGroup)b.getSerializable("newStudyGroup");
+                    currStudyGroupList.add(newGroup);
+                    updateAvailableStudyGroups(currStudyGroupList);
+                    setDummyStudyGroupButtons();
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage(newGroup.getName() + " created!")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+
+                            })
+                            .show();
+                }
+            }
+        }
+    }
 
         /**
          * ADD A QUESTION PAGE TO BE IMPLEMENTED
