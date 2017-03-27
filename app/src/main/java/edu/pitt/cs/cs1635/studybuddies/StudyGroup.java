@@ -5,7 +5,7 @@ package edu.pitt.cs.cs1635.studybuddies;
  */
 public class StudyGroup {
     private String name;
-    private int time;
+    private String time;
     private int floor;
 
     public StudyGroup() {
@@ -13,7 +13,7 @@ public class StudyGroup {
 
     public StudyGroup(String n) {
         name = n;
-        time = 2;
+        time = "2";
         floor = 3;
     }
 
@@ -26,12 +26,12 @@ public class StudyGroup {
         this.name = name;
     }
 
-    public int getTime()
+    public String getTime()
     {
         return time;
     }
 
-    public void setTime(int t)
+    public void setTime(String t)
     {
         this.time = t;
     }
