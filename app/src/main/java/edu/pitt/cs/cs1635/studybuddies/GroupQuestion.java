@@ -25,7 +25,7 @@ public class GroupQuestion implements Serializable {
     private String question = null;
 
     //an arraylist of the answers to the question
-    private ArrayList<String> answerList = new ArrayList<String>();
+    private ArrayList<GroupAnswer> answerList = new ArrayList<GroupAnswer>();
 
     //setters
 
@@ -37,11 +37,11 @@ public class GroupQuestion implements Serializable {
         this.question = question;
     }
 
-    public void setAnswerList(ArrayList<String> answerList) {
+    public void setAnswerList(ArrayList<GroupAnswer> answerList) {
         this.answerList = answerList;
     }
 
-    public void addAddAnswer(String answer){
+    public void addAddAnswer(GroupAnswer answer){
         answerList.add(answer);
     }
     //getters
@@ -55,7 +55,7 @@ public class GroupQuestion implements Serializable {
         return question;
     }
 
-    public ArrayList<String> getAnswerList() {
+    public ArrayList<GroupAnswer> getAnswerList() {
         return answerList;
     }
 

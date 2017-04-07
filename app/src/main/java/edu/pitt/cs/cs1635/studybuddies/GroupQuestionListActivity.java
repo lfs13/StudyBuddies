@@ -202,6 +202,8 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
                     clickedQuestion = g;
                     Intent i = new Intent(this, AnswerQuestion.class);
                     i.putExtra("sampleObject", g);
+                    i.putExtra("answeredAlready", false);
+
                     startActivityForResult(i, 1);
 
                 }
@@ -215,7 +217,7 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
             if(resultCode == RESULT_OK){
                 String stredittext=data.getStringExtra("sampleObject");
                 System.out.println("Right here: " + stredittext);
-                clickedQuestion.addAddAnswer(stredittext);
+                clickedQuestion.addAddAnswer(new GroupAnswer(stredittext));
                 clickedQuestion.setAnswered(true);
                 updateAnswered();
 

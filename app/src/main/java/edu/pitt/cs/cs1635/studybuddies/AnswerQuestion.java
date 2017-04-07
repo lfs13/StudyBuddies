@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class AnswerQuestion extends AppCompatActivity implements View.OnClickListener{
 
+    private boolean answered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
 
         Intent i = getIntent();
         GroupQuestion question = (GroupQuestion) i.getSerializableExtra("sampleObject");
+        answered = (boolean) i.getSerializableExtra("answeredAlready");
         TextView myAwesomeTextView = (TextView)findViewById(R.id.TEXT_STATUS_ID);
         myAwesomeTextView.setText(question.getQuestion() + "?");
         TextView myAwesomeTextView2 = (TextView)findViewById(R.id.TEXT_STATUS_ID2);
@@ -51,10 +53,14 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
 
     //Pushing the answer back to the GroupQuestionListActivity
     public void submit(){
+        Intent i;
         final EditText edit =  (EditText) findViewById(R.id.TEXT_STATUS_ID2);
-        System.out.println(edit.getText());
-        Intent i = new Intent(this, GroupQuestionListActivity.class);
-
+        //System.out.println(edit.getText());
+        if(answered){
+            i = new Intent(this, ViewAnswer.class);
+        }else {
+            i = new Intent(this, GroupQuestionListActivity.class);
+        }
         i.putExtra("sampleObject",  edit.getText().toString());
         setResult(RESULT_OK, i);
         finish();
@@ -91,10 +97,10 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        System.out.println("HERE");
+        //System.out.println("HERE");
 
         if (v.getId() == R.id.button2) {
-            System.out.println("HERE");
+            //System.out.println("HERE");
             final EditText edit =  (EditText) findViewById(R.id.TEXT_STATUS_ID2);
             Intent i = new Intent(this, GroupQuestionListActivity.class);
 

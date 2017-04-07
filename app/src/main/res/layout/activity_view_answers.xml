@@ -24,21 +24,24 @@
     </ScrollView>
 
     <ScrollView
-        android:id="@+id/SCROLLER_ID2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
+        android:id="@+id/group_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8">
 
-        <TextView
-            android:id="@+id/TEXT_STATUS_ID2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.95"
-            android:typeface="normal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            tools:textColor="@android:color/black" />
+        <LinearLayout
+            android:id="@+id/answer_list"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
 
     </ScrollView>
+
+    <Button
+        android:text="Add Answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_answer"
+        android:layout_weight="0.07" />
 
 </LinearLayout>

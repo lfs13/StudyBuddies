@@ -65,7 +65,6 @@ public class AnswerQuestionListActivity extends AppCompatActivity implements Vie
             updateAvailableQuestions(currQuestionList);
         }
         else {
-            System.out.println("fiters");
             ArrayList<GroupQuestion> filtered = new ArrayList<>();
             s = s.toLowerCase();
             for (int i = 0; i < currQuestionList.size(); i++) {
@@ -131,6 +130,7 @@ public class AnswerQuestionListActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         System.out.println("Here");
         ArrayList<GroupQuestion> g_list = currQuestionList;
+        int count = 0;
 
         for(GroupQuestion g : g_list){
 
@@ -147,12 +147,17 @@ public class AnswerQuestionListActivity extends AppCompatActivity implements Vie
 
                     Intent i = new Intent(this, ViewAnswer.class);
                     i.putExtra("sampleObject", g);
+                    i.putExtra("index", count);
                     startActivityForResult(i, 1);
+                    break;
 
                 }
             }
+            count++;
         }
     }
+
+
 
     /**
      * Make the dummy question buttons clickable

@@ -41,14 +41,6 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:imeOptions="actionDone"/>
-        <ImageButton
-            android:id="@+id/add_group_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_action_new"
-            android:onClick="addQuestion"
-            android:background="#00FFFFFF"/>
     </LinearLayout>
 
 
