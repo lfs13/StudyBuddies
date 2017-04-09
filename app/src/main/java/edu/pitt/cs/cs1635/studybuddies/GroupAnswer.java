@@ -26,8 +26,8 @@ public class GroupAnswer implements Serializable {
     //the question
     private String answer = null;
 
-    private double total = 0;
-    private double count = 0;
+    private double total = 3;
+    private double count = 1;
 
 
     //setters
@@ -36,8 +36,8 @@ public class GroupAnswer implements Serializable {
         this.ranked = answered;
     }
 
-    public void addRank(String answer){
-        total = total + 1;
+    public void addRank(float answer){
+        total = total + answer;
         count += 1;
     }
     //getters

@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Dialog;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,11 +20,14 @@ import java.util.Iterator;
 /**
  * Created by nick on 3/26/17.
  */
-public class ViewAnswer extends AppCompatActivity{
+public class ViewAnswer extends AppCompatActivity implements View.OnClickListener{
     private GroupQuestion question;
     private ArrayList<GroupAnswer> updatedAnswers;
     protected static ArrayList<GroupQuestion> currQuestionList = GroupQuestionListActivity.currQuestionList;//way to access static variable using dot operator.
     private int index = -1;
+    private RatingBar ratingBar;
+    private float rating;
+    private int cur_index = 0;
     /*
     Sets the question and the answer to view on the view question page.
      */
@@ -41,10 +46,10 @@ public class ViewAnswer extends AppCompatActivity{
         myAwesomeTextView.setText(question.getQuestion() + "?");
         TextView myAwesomeTextView2 = (TextView)findViewById(R.id.TEXT_STATUS_ID2);
         updatedAnswers = question.getAnswerList();
-        updateAvailableAnswers(question.getAnswerList());
+        updateAvailableAnswers();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button button = (Button)findViewById(R.id.add_answer);
-
+        ButtonsActivate();
         button.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
@@ -54,6 +59,7 @@ public class ViewAnswer extends AppCompatActivity{
                     }
                 }
         );
+
     }
 
     private void addAnswer() {
@@ -62,13 +68,28 @@ public class ViewAnswer extends AppCompatActivity{
         i.putExtra("answeredAlready", true);
         startActivityForResult(i, 1);
     }
+    /**
+     * Make the dummy answers buttons clickable
+     */
+    private void ButtonsActivate(){
 
+        LinearLayout QuestionList = (LinearLayout) findViewById(R.id.answer_list);
+
+        for(Object obj: QuestionList.getTouchables()){
+            if (obj instanceof Button) {
+                Button tempButton = (Button) obj;
+                tempButton.setClickable(true);
+                tempButton.setFocusable(true);
+                tempButton.setOnClickListener(this);
+
+            }
+        }
+    }
     /**
      * Update UI to reflect filtered questions
-     * @param updatedAnswers filtered list of questions
-    */
-    public void updateAvailableAnswers(ArrayList<GroupAnswer> updatedAnswers){
-
+     */
+    public void updateAvailableAnswers(){
+        updatedAnswers = this.updatedAnswers;
         LinearLayout qList = (LinearLayout) findViewById(R.id.answer_list);
 
         qList.removeAllViews();
@@ -77,11 +98,14 @@ public class ViewAnswer extends AppCompatActivity{
 
             Button tempButton = new Button(this);
             GroupAnswer tempAnswer = updatedAnswers.get(i);
-            tempButton.setText(tempAnswer.getAnswer());
+            String toAdd = String.format(("%.2f : %s"), tempAnswer.getRank(), tempAnswer.getAnswer());
+            tempButton.setText(toAdd);
             tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             qList.addView(tempButton);
 
         }
+        ButtonsActivate();
+
     }
 
 
@@ -127,6 +151,7 @@ public class ViewAnswer extends AppCompatActivity{
 
             }
         }
+        ButtonsActivate();
     }
 
     public void updateAnswered(){
@@ -144,7 +169,74 @@ public class ViewAnswer extends AppCompatActivity{
         updatedAnswers = question.getAnswerList();
         currQuestionList.set(index,question);
 
-        updateAvailableAnswers(updatedAnswers);
+        updateAvailableAnswers();
     }
 
+    public void setRating(){
+        rating = ratingBar.getRating();
+        String ratingStat = "The rating is " + rating;
+        Toast.makeText(this, ratingStat, Toast.LENGTH_SHORT).show();
+        GroupAnswer answer = updatedAnswers.get(cur_index);
+        answer.setRanked(true);
+        answer.addRank(rating);
+        System.out.println(updatedAnswers.get(cur_index).getAnswer());
+        System.out.println("RIGHT HERHEHERHERHER! " + answer.getRank());
+
+        this.updatedAnswers.set(cur_index, answer);
+        updateAnswered();
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        ArrayList<GroupAnswer> a_list = this.updatedAnswers;
+        int count = 0;
+        System.out.println("Here");
+
+        for(GroupAnswer a : a_list){
+            System.out.println(count);
+
+            if ( v instanceof Button) {
+                System.out.println("Here");
+
+                String candidateBtnText = a.getAnswer().toLowerCase().trim();
+                String viewText = ((Button) v).getText().toString().toLowerCase().trim();
+                viewText = viewText.split(" : ")[1];
+
+                if(candidateBtnText.equals(viewText)){
+                    System.out.println("Here");
+                    /**
+                     * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
+                     */
+                    final Dialog rankDialog = new Dialog(v.getContext(), R.style.FullHeightDialog);
+                    rankDialog.setContentView(R.layout.rank_dialog);
+                    rankDialog.setCancelable(true);
+                    ratingBar = (RatingBar)rankDialog.findViewById(R.id.dialog_ratingbar);
+                    ratingBar.setRating(3);
+
+                    TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+                    text.setText(a.getAnswer());
+                    cur_index = count;
+                    Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+                    updateButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setRating();
+                            rankDialog.dismiss();
+                        }
+                    });
+                    //now that the dialog is set up, it's time to show it
+                    rankDialog.show();
+                    break;
+                }
+
+
+            }
+            count++;
+
+        }
+    }
 }
+
