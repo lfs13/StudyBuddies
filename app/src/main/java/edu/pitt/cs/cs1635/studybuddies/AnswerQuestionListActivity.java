@@ -27,7 +27,7 @@ public class AnswerQuestionListActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_questions);
+        setContentView(R.layout.activity_answered_questions);
 
         //set list of buttons to groups
         updateAvailableQuestions(currQuestionList);

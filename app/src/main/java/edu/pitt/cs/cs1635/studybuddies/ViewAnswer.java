@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by nick on 3/26/17.
@@ -53,7 +54,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
         button.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        //System.out.println("HERE");
+                        ////System.out.println("HERE");
                         addAnswer();
 
                     }
@@ -61,6 +62,39 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
         );
 
     }
+
+    /**
+     * create filtered answer list and send to update method
+     */
+    public void filterGroupQuestions(){
+
+        ArrayList<GroupAnswer> temp = new ArrayList<>();
+        for(GroupAnswer answer:updatedAnswers){
+
+                int count = 0;
+                for(GroupAnswer temp_answer: updatedAnswers){
+                    //System.out.println(answer.getRank() + " and " + temp_answer.getRank());
+                    if(answer.getRank() > temp_answer.getRank() && !(answer.getAnswer().equals(temp_answer.getAnswer()))){
+                        temp.add(count, answer);
+                        break;
+                    }else if(temp.size() == count){
+                        temp.add(count, answer);
+                        break;
+                    }else if(answer.getRank() == temp_answer.getRank()) {
+                        temp.add(count+1, answer);
+                        break;
+                    }else{
+                        count++;
+                        continue;
+                    }
+
+                }
+        }
+        //System.out.println("Right here:  " + temp.size());
+        this.updatedAnswers = temp;
+
+    }
+
 
     private void addAnswer() {
         Intent i = new Intent(this, AnswerQuestion.class);
@@ -72,6 +106,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
      * Make the dummy answers buttons clickable
      */
     private void ButtonsActivate(){
+        filterGroupQuestions();
 
         LinearLayout QuestionList = (LinearLayout) findViewById(R.id.answer_list);
 
@@ -89,6 +124,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
      * Update UI to reflect filtered questions
      */
     public void updateAvailableAnswers(){
+        filterGroupQuestions();
         updatedAnswers = this.updatedAnswers;
         LinearLayout qList = (LinearLayout) findViewById(R.id.answer_list);
 
@@ -98,7 +134,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
 
             Button tempButton = new Button(this);
             GroupAnswer tempAnswer = updatedAnswers.get(i);
-            String toAdd = String.format(("%.2f : %s"), tempAnswer.getRank(), tempAnswer.getAnswer());
+            String toAdd = String.format(("%.1f\u2605 %s"), tempAnswer.getRank(), tempAnswer.getAnswer());
             tempButton.setText(toAdd);
             tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             qList.addView(tempButton);
@@ -144,7 +180,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
                 String stredittext=data.getStringExtra("sampleObject");
-                System.out.println("Right here: " + stredittext);
+                //System.out.println("Right here: " + stredittext);
                 question.addAddAnswer(new GroupAnswer(stredittext));
                 question.setAnswered(true);
                 updateAnswered();
@@ -155,6 +191,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
     }
 
     public void updateAnswered(){
+        filterGroupQuestions();
         int k = 0;
         Iterator<GroupAnswer> iter = updatedAnswers.iterator();
 
@@ -179,10 +216,11 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
         GroupAnswer answer = updatedAnswers.get(cur_index);
         answer.setRanked(true);
         answer.addRank(rating);
-        System.out.println(updatedAnswers.get(cur_index).getAnswer());
-        System.out.println("RIGHT HERHEHERHERHER! " + answer.getRank());
+        //System.out.println(updatedAnswers.get(cur_index).getAnswer());
+        //System.out.println("RIGHT HERHEHERHERHER! " + answer.getRank());
 
         this.updatedAnswers.set(cur_index, answer);
+
         updateAnswered();
 
 
@@ -193,20 +231,20 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         ArrayList<GroupAnswer> a_list = this.updatedAnswers;
         int count = 0;
-        System.out.println("Here");
+        //System.out.println("Here");
 
         for(GroupAnswer a : a_list){
-            System.out.println(count);
+            //System.out.println(count);
 
             if ( v instanceof Button) {
-                System.out.println("Here");
+                //System.out.println("Here");
 
                 String candidateBtnText = a.getAnswer().toLowerCase().trim();
                 String viewText = ((Button) v).getText().toString().toLowerCase().trim();
-                viewText = viewText.split(" : ")[1];
+                viewText = viewText.split("\u2605 ")[1];
 
                 if(candidateBtnText.equals(viewText)){
-                    System.out.println("Here");
+                    //System.out.println("Here");
                     /**
                      * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
                      */
