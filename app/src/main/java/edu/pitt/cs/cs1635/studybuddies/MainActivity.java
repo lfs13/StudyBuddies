@@ -192,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     favorites.add(g.toString());
                 }
                 intent.putExtra("favorites", favorites);
+                intent.putExtra("user", currentUser);
+                intent.putExtra("groups", groups);
                 startActivity(intent);
                 return true;
 

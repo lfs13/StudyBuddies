@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Louie on 3/13/17.
  */
 
-public class User {
+public class User implements Serializable{
     String name = "";
     static ArrayList<Group> Gfavorites;
     static int c = 0;

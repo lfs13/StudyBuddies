@@ -25,4 +25,14 @@ public class GroupList implements Serializable{
     public int size(){
         return groups.size();
     }
+    public Group getGroupByName(String name){
+        Group result = null;
+        for(Group g : groups){
+            if (g.toString().equals(name)){
+                result = g;
+                break;
+            }
+        }
+        return result;
+    }
 }
