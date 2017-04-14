@@ -13,6 +13,7 @@ public class Group implements Serializable{
     int gid;
     int numMembers = 0;
     int maxMembers = 0;
+    boolean isFavorite = false;
     private ArrayList<GroupQuestion> questionList = new ArrayList<>();
     private ArrayList<StudyGroup> studyGroupList = new ArrayList<>();
     int c1 = 0;
@@ -85,5 +86,15 @@ public class Group implements Serializable{
         studyGroupList.add(st);
     }
 
+    public void setFavorite(){isFavorite = true;}
 
+    public void removeFavorite(){isFavorite = false;}
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Group) {
+            return this.toString().equals(other.toString());
+        }
+        return false;
+    }
 }

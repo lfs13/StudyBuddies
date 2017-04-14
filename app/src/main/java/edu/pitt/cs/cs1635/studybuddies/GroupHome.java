@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.view.Window;
 import android.content.Intent;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     private Button studyGroupListButton;
     private Button groupQButton;
     private Button answeredQuestion;
-
+    private ImageButton favoriteButton;
     private static Group group;
     private static User user;
     //private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>() ;
@@ -42,13 +43,13 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         studyGroupListButton = (Button) findViewById(R.id.studyGroupsButton);
         groupQButton = (Button) findViewById(R.id.groupQsButton);
         answeredQuestion = (Button) findViewById(R.id.answeredQuestions);
-
+        favoriteButton = (ImageButton) findViewById(R.id.favorite_indicator);
 
         //set onClick listeners for the buttons
         studyGroupListButton.setOnClickListener(GroupHome.this);
         groupQButton.setOnClickListener(GroupHome.this);
         answeredQuestion.setOnClickListener(GroupHome.this);
-
+        favoriteButton.setOnClickListener(GroupHome.this);
 
         //get the group name and number of members in the library views
         groupNameDisp = (TextView) findViewById(R.id.groupNameHeader);
@@ -62,6 +63,15 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         groupNameDisp.setText(name);
         numMemsDisp.setText(numOfMembers);
 
+        //check if group has already been favorited
+        for(Group g : user.getFavorites()){
+            if(group.equals(g)){
+                group.isFavorite = true;
+                ImageButton fav = (ImageButton) findViewById(R.id.favorite_indicator);
+                fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                break;
+            }
+        }
     }
 
     @Override
@@ -149,6 +159,28 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
 
         }
+        else if(v.getId() == R.id.favorite_indicator){
+            ImageButton fav = (ImageButton) v;
+            if(!group.isFavorite){
+                group.setFavorite();
+                user.addFavorite(group);
+                fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+            }
+            else{
+                ArrayList<Group> newGroups = user.getFavorites();
+                newGroups.remove(newGroups.indexOf(group));
+                user.setFavorites(newGroups);
+                group.removeFavorite();
+                fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("user",user);
+        setResult(2,intent);
     }
 }
 

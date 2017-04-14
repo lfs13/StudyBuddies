@@ -51,10 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //SharedPreferences.Editor editor = mPrefs.edit();
@@ -93,8 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createGroups();
 
         //create dummy user until login popup complete
-        createDummyUser();
-
+        if(currentUser == null) {
+            createDummyUser();
+        }
         //set list of buttons to groups
         updateAvailableGroups(groups.getGroupArrayList());
 
@@ -173,9 +170,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void createDummyUser(){
-        User newUser = new User("Dummy");
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        User newUser = new User(mPrefs.getString("username",""));
         currentUser = newUser;
-
         currentUser.addFavorite(groups.get(3));
         currentUser.addFavorite(groups.get(6));
         currentUser.addFavorite(groups.get(9));
@@ -290,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     GroupHome.setGroup(g);
                     GroupHome.setUser(currentUser);
                    // GroupHome.setStudyGroupList(g.getQuestionList());
-                    startActivity(intent);
+                    startActivityForResult(intent,2);
 
                 }
             }
@@ -329,6 +326,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             })
                             .show();
+                }
+            }
+        }
+        else if(requestCode == 2){
+            if(resultCode == 1){
+                Bundle b = data.getExtras();
+                if(b != null){
+                    currentUser = (User) b.getSerializable("user");
                 }
             }
         }

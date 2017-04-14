@@ -1,7 +1,10 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -43,8 +46,14 @@ public class User implements Serializable{
     public void addFavorite(Group g){
         Gfavorites.add(g);
         if(c <= 0 ){
+            g.setFavorite();
             g.addMember();
         }
+    }
+
+    public void setFavorites(ArrayList<Group> newGroups){
+        Gfavorites = null;
+        Gfavorites = newGroups;
     }
 
     public ArrayList<Group> getFavorites(){
