@@ -69,18 +69,50 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     }
     public void confirmCreateGroup(View v){
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("Are you sure you want to create this group?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        createGroup();
-                    }
+        EditText groupName   = (EditText)findViewById(R.id.group_name);
+        EditText profName   = (EditText)findViewById(R.id.professor_name);
+        String groupString = groupName.getText().toString();
+        String profString = profName.getText().toString();
+        if(groupString.length() < 5){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Group name must be 5 characters or longer")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
 
-                })
-                .setNegativeButton("No", null)
-                .show();
+                    })
+                    .show();
+        }
+        else if(profString.length() < 5){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Professor's name must be 5 characters or longer")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+
+                    })
+                    .show();
+        }
+        else {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Are you sure you want to create this group?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            createGroup();
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
     public void cancelAction(View v){
         new AlertDialog.Builder(this)
