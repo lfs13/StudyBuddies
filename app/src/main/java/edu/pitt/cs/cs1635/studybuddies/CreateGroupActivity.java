@@ -57,7 +57,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                 return true;
 
             case R.id.home_button:
-                //TODO
+                Intent in = new Intent(this, MainActivity.class);
+                startActivity(in);
                 return true;
 
             default:

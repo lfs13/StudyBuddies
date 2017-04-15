@@ -1,5 +1,6 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 public class CreateStudyGroupActivity extends AppCompatActivity {
 
     public static User currentUser = new User("user");
+    NumberPicker length;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,6 +43,12 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle b = getIntent().getExtras();
+        length = (NumberPicker)findViewById(R.id.length);
+        length.setMaxValue(8);
+        length.setMinValue(1);
+        length.setDisplayedValues( new String[] { "1 hour", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours"
+                , "7 hours", "8 hours"} );
+        length.setValue(1);
 
     }
     @Override
@@ -55,7 +65,8 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
                 return true;
 
             case R.id.home_button:
-                //TODO
+                Intent in = new Intent(this, MainActivity.class);
+                startActivity(in);
                 return true;
 
             default:
@@ -66,18 +77,50 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
         }
     }
     public void confirmCreateGroup(View v){
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("Are you sure you want to create this study group?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        createStudyGroup();
-                    }
+        EditText subject   = (EditText)findViewById(R.id.subject);
+        EditText location   = (EditText)findViewById(R.id.location);
+        String subjectString = subject.getText().toString();
+        String locationString = location.getText().toString();
+        if(subjectString.length() < 5){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Subject must be 5 characters or longer")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
 
-                })
-                .setNegativeButton("No", null)
-                .show();
+                    })
+                    .show();
+        }
+        else if(locationString.length() < 5){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Location must be 5 characters or longer")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+
+                    })
+                    .show();
+        }
+        else {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Are you sure you want to create this study group?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            createStudyGroup();
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
     public void cancelAction(View v){
         new AlertDialog.Builder(this)
@@ -96,14 +139,21 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
     public void createStudyGroup(){
         EditText subject   = (EditText)findViewById(R.id.subject);
         EditText location   = (EditText)findViewById(R.id.location);
-        EditText time   = (EditText)findViewById(R.id.time);
-        EditText length   = (EditText)findViewById(R.id.length);
+        TimePicker time   = (TimePicker)findViewById(R.id.time);
+        int hour = time.getHour();
+        int minute = time.getMinute();
+        int duration = length.getValue();
+        String timeString = Integer.toString(hour)+ " " + Integer.toString(minute);
+        String durationString = Integer.toString(duration);
+        String subjectString = subject.getText().toString();
+        String locationString = location.getText().toString();
 
-        StudyGroup g = new StudyGroup(subject.getText().toString(), location.getText().toString(),
-                time.getText().toString(),length.getText().toString());
+        StudyGroup g = new StudyGroup(subjectString, locationString,
+                timeString, durationString);
         Intent data = new Intent();
         data.putExtra("newStudyGroup", g);
         setResult(1,data);
         finish();
     }
+
 }
