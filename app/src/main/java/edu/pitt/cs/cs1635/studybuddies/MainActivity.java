@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentUser.addFavorite(groups.get(3));
         currentUser.addFavorite(groups.get(6));
         currentUser.addFavorite(groups.get(9));
-        currentUser.c++;
+        currentUser.c = 3;
     }
 
     @Override
