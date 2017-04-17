@@ -213,7 +213,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                     currStudyGroupList.add(newGroup);
                     updateAvailableStudyGroups(currStudyGroupList);
                     setDummyStudyGroupButtons();
-                    new AlertDialog.Builder(this)
+                    new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setMessage(newGroup.getName() + " created!")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {

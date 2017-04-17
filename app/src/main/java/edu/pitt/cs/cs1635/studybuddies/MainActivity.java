@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if(showMessage) {
             showMessage = false;
            //greet
-            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this,R.style.AppCompatAlertDialogStyle);
             alert.setMessage("Hello " + username + "!")
                     .setCancelable(true)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     groups.add(newGroup);
                     updateAvailableGroups(groups.getGroupArrayList());
                     setDummyGroupButtons();
-                    new AlertDialog.Builder(this)
+                    new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setMessage(newGroup.getName() + " created!")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {

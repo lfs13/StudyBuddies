@@ -82,33 +82,33 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
         String subjectString = subject.getText().toString();
         String locationString = location.getText().toString();
         if(subjectString.length() < 5){
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage("Subject must be 5 characters or longer")
-                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                    builder.setIcon(android.R.drawable.ic_dialog_alert);
+                    builder.setMessage("Subject must be 5 characters or longer");
+                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             return;
                         }
 
-                    })
-                    .show();
+                    });
+                    builder.show();
         }
         else if(locationString.length() < 5){
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage("Location must be 5 characters or longer")
-                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
-                        }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setMessage("Location must be 5 characters or longer");
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
 
-                    })
-                    .show();
+            });
+            builder.show();
         }
         else {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage("Are you sure you want to create this study group?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
