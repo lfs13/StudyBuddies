@@ -19,7 +19,8 @@
                     android:layout_weight="0.60"
                     android:typeface="normal"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    tools:textColor="@android:color/black" />
+                    tools:textColor="@android:color/black"
+                    android:textColor="@color/text_color"/>
 
         </ScrollView>
 
@@ -31,7 +32,8 @@
             android:layout_weight="1.95"
             android:typeface="normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            tools:textColor="@android:color/black" />
+            tools:textColor="@android:color/black"
+            android:textColor="@color/text_color"/>
 
 
         <Button

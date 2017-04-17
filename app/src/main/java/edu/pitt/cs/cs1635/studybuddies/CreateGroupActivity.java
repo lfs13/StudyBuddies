@@ -74,7 +74,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         String groupString = groupName.getText().toString();
         String profString = profName.getText().toString();
         if(groupString.length() < 5){
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage("Group name must be 5 characters or longer")
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -87,7 +87,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     .show();
         }
         else if(profString.length() < 5){
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage("Professor's name must be 5 characters or longer")
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -115,7 +115,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     }
     public void cancelAction(View v){
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage("Are you sure you want to cancel create a group?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

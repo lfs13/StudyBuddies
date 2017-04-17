@@ -11,6 +11,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="Create a study group"
+        android:textColor="@color/text_color"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:text="Subject:"
+            android:textColor="@color/text_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="Subject:" />
 
@@ -43,6 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:text="Location:"
+            android:textColor="@color/text_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="Location:" />
 
@@ -73,6 +76,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"
                 android:text="Start Time:"
+                android:textColor="@color/text_color"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:text="Start Time:" />
 
@@ -94,6 +98,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"
                 android:text="Duration:"
+                android:textColor="@color/text_color"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:text="Duration:" />
 

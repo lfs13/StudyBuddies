@@ -164,6 +164,10 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
             if(!group.isFavorite){
                 group.setFavorite();
                 user.addFavorite(group);
+                group.addMember();
+                numMemsDisp = (TextView) findViewById(R.id.textView2);
+                String numOfMembers = group.getNumMembers() + "";
+                numMemsDisp.setText(numOfMembers);
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             }
             else{
@@ -171,6 +175,10 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
                 newGroups.remove(newGroups.indexOf(group));
                 user.setFavorites(newGroups);
                 group.removeFavorite();
+                group.removeMember();
+                numMemsDisp = (TextView) findViewById(R.id.textView2);
+                String numOfMembers = group.getNumMembers() + "";
+                numMemsDisp.setText(numOfMembers);
                 fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
             }
         }

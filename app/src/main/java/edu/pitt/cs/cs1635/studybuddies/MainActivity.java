@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if(showMessage) {
             showMessage = false;
            //greet
-            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this,R.style.AppCompatAlertDialogStyle);
             alert.setMessage("Hello " + username + "!")
                     .setCancelable(true)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -218,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button tempButton = new Button(this);
             Group tempGroup = updatedGroups.get(i);
             tempButton.setText(tempGroup.toString());
-            tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             groupList.addView(tempButton);
             setDummyGroupButtons();
         }
@@ -315,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     groups.add(newGroup);
                     updateAvailableGroups(groups.getGroupArrayList());
                     setDummyGroupButtons();
-                    new AlertDialog.Builder(this)
+                    new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setMessage(newGroup.getName() + " created!")
                             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
