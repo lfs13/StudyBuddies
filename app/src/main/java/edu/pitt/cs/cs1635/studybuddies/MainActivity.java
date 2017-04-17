@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -220,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button tempButton = new Button(this);
             Group tempGroup = updatedGroups.get(i);
             tempButton.setText(tempGroup.toString());
-            tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             groupList.addView(tempButton);
             setDummyGroupButtons();
         }

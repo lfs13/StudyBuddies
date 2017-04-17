@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="13dp"
             android:layout_weight="0.60"
+            android:textColor="@color/text_color"
             android:typeface="normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             tools:textColor="@android:color/black" />

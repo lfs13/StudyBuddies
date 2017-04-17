@@ -11,6 +11,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginBottom="10dp"
         android:text="Create a group"
+        android:textColor="@color/text_color"
         android:gravity="center_horizontal"
         />
 

@@ -10,6 +10,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=""
         android:id="@+id/groupNameHeader"
+        android:textColor="@color/text_color"
         android:layout_gravity="center_horizontal"
         android:paddingTop="20dp"
         />
@@ -30,6 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Number of Members in Library:"
         android:id="@+id/numMemHeader"
+        android:textColor="@color/text_color"
         android:layout_gravity="center_horizontal"
         android:paddingTop="10dp"
         />
@@ -38,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textColor="@color/text_color"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
