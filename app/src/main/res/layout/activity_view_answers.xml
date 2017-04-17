@@ -17,8 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="13dp"
             android:layout_weight="0.60"
-            android:typeface="normal"
+            android:fontFamily="sans-serif"
+            android:gravity="left"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:typeface="normal"
             tools:textColor="@android:color/black" />
 
     </ScrollView>
