@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp"
-        android:textColor="@color/text_color"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_color" />
 
     <TextView
         android:id="@+id/chat"
@@ -39,7 +39,10 @@
         android:layout_gravity="left"
         android:textColor="@color/text_color"
         android:paddingBottom="200dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:maxLines = "100"
+        android:scrollbars = "vertical"
+        />
 
     <EditText
         android:id="@+id/submitChat"
@@ -49,7 +52,8 @@
         android:inputType="text"
         android:backgroundTint="@color/colorAccent"
         android:layout_gravity="center"
-        android:text="Type message here..." />
+        android:hint="Type message here..."
+        />
 
     <Button
         android:id="@+id/submitButton"

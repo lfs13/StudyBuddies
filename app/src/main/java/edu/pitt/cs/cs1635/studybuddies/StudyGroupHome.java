@@ -3,6 +3,7 @@ package edu.pitt.cs.cs1635.studybuddies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         timeRemaining.setText("2 hours remaining");
         chatText = chatText + "User1 has joined Homework Help";
         chat.setText(chatText);
+        chat.setMovementMethod(new ScrollingMovementMethod());
 
         //set onClick listeners for the buttons
         submitButton.setOnClickListener(StudyGroupHome.this);
@@ -93,6 +95,10 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.submitButton) {
+            chatText = chatText + "\n" + submitChat.getText();
+            chat.setText(chatText);
+        }
     }
 
 }

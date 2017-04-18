@@ -3,6 +3,7 @@ package edu.pitt.cs.cs1635.studybuddies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
         answered = (boolean) i.getSerializableExtra("answeredAlready");
         TextView myAwesomeTextView = (TextView)findViewById(R.id.TEXT_STATUS_ID);
         myAwesomeTextView.setText(question.getQuestion() + "?");
-        TextView myAwesomeTextView2 = (TextView)findViewById(R.id.TEXT_STATUS_ID2);
+        final TextView myAwesomeTextView2 = (TextView)findViewById(R.id.TEXT_STATUS_ID2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button button = (Button)findViewById(R.id.button2);
 
@@ -43,6 +44,19 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
                         //System.out.println("HERE");
                         submit();
 
+                    }
+                }
+        );
+
+        myAwesomeTextView2.setOnEditorActionListener(
+                new EditText.OnEditorActionListener() {
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                        if (actionId == myAwesomeTextView2.IME_ACTION_DONE) {
+//                            submit();
+//                            return true;
+//                        }
+                        System.out.println("HERE");
+                        return false;
                     }
                 }
         );
