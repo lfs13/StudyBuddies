@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,11 +52,15 @@ public class AnswerQuestion extends AppCompatActivity implements View.OnClickLis
         myAwesomeTextView2.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                        if (actionId == myAwesomeTextView2.IME_ACTION_DONE) {
-//                            submit();
-//                            return true;
-//                        }
-                        System.out.println("HERE");
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            submit();
+                            return true;
+                        }
+                        if (actionId == EditorInfo.IME_NULL
+                                && event.getAction() == KeyEvent.ACTION_DOWN) {
+                            submit();
+                            return true;
+                        }
                         return false;
                     }
                 }

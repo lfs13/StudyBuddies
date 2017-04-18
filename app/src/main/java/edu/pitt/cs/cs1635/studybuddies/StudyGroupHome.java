@@ -23,6 +23,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
     private TextView chat;
     private EditText submitChat;
     private String chatText = "";
+    StudyGroup current;
 
     Intent inIntent = getIntent();
 
@@ -31,6 +32,8 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_group_home);
+
+        //current = (StudyGroup)inIntent.getSerializableExtra("StudyGroup");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -46,7 +49,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         studyGroupName.setText("Homework Help");
         floor.setText("Floor 3");
         timeRemaining.setText("2 hours remaining");
-        chatText = chatText + "User1 has joined Homework Help";
+        //chatText = chatText + "User1 has joined Homework Help" + current.getName() + "\n" + current.getDuration();
         chat.setText(chatText);
         chat.setMovementMethod(new ScrollingMovementMethod());
 
