@@ -48,11 +48,11 @@
         android:id="@+id/submitChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
         android:inputType="text"
         android:backgroundTint="@color/colorAccent"
         android:layout_gravity="center"
         android:hint="Type message here..."
+        android:imeOptions="actionDone"
         />
 
     <Button
