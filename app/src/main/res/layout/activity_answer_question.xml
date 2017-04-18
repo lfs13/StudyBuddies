@@ -34,7 +34,9 @@
             android:backgroundTint="@color/colorAccent"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             tools:textColor="@android:color/black"
-            android:textColor="@color/text_color"/>
+            android:textColor="@color/text_color"
+            android:imeOptions="actionDone"
+            />
 
 
         <Button

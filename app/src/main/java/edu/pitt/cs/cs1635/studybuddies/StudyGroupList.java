@@ -36,7 +36,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
         updateAvailableStudyGroups(currStudyGroupList);
 
         //set up the dummy group buttons
-      //  setDummyStudyGroupButtons();
+        //setDummyStudyGroupButtons();
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -100,7 +100,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
 
 
-    /**
+        /**
          * Hard code some questions
          */
         public void createDummyStudyGroups(){
@@ -191,6 +191,10 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                     if(candidateBtnText.equals(viewText)){
 
                         Intent intent = new Intent(this, StudyGroupHome.class);
+                        intent.putExtra("user", user);
+                        intent.putExtra("name", g.getName());
+                        intent.putExtra("floor", g.getFloor());
+                        intent.putExtra("duration", g.getDuration());
                         startActivity(intent);
 
                     }
