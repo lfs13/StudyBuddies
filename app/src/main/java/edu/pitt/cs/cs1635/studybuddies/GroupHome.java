@@ -1,5 +1,6 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,7 +12,11 @@ import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
+
+import static edu.pitt.cs.cs1635.studybuddies.MainActivity.mPrefs;
 
 
 public class GroupHome extends AppCompatActivity implements View.OnClickListener {
@@ -167,6 +172,8 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
         else if(v.getId() == R.id.favorite_indicator){
             ImageButton fav = (ImageButton) v;
             if(!group.isFavorite){
+                System.out.println("HERE");
+
                 group.setFavorite();
                 user.addFavorite(group);
                 group.addMember();
@@ -174,6 +181,11 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
                 String numOfMembers = group.getNumMembers() + "";
                 numMemsDisp.setText(numOfMembers);
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(user.getFavorites());
+                prefsEditor.putString("MyObject", json);
+                prefsEditor.commit();
             }
             else{
                 ArrayList<Group> newGroups = user.getFavorites();
@@ -185,6 +197,11 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
                 String numOfMembers = group.getNumMembers() + "";
                 numMemsDisp.setText(numOfMembers);
                 fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(user.getFavorites());
+                prefsEditor.putString("MyObject", json);
+                prefsEditor.commit();
             }
         }
     }

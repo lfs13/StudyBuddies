@@ -54,6 +54,7 @@ public class User implements Serializable{
     public void setFavorites(ArrayList<Group> newGroups){
         Gfavorites = null;
         Gfavorites = newGroups;
+
     }
 
     public ArrayList<Group> getFavorites(){

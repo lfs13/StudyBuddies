@@ -14,7 +14,7 @@ public class Group implements Serializable{
     int numMembers = 0;
     int maxMembers = 0;
     boolean isFavorite = false;
-    private ArrayList<GroupQuestion> questionList = new ArrayList<>();
+    public ArrayList<GroupQuestion> questionList = new ArrayList<>();
     private ArrayList<StudyGroup> studyGroupList = new ArrayList<>();
     int c1 = 0;
     int c2 = 0;
@@ -50,6 +50,7 @@ public class Group implements Serializable{
         numMembers = n;
     }
     public void addMember(){
+        System.out.println("In add member.");
         numMembers++;
     }
     public void removeMember(){

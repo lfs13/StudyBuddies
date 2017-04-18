@@ -30,15 +30,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private static User currentUser;
+    public static User currentUser;
     private String username = null;
     private static GroupList groups = new GroupList();
     private static int count = 0;
-    SharedPreferences mPrefs;
+    protected static SharedPreferences mPrefs;
     private static boolean showMessage = true;
 
 
@@ -54,11 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mPrefs = getPreferences(MODE_PRIVATE);
 
         //SharedPreferences.Editor editor = mPrefs.edit();
         //editor.putString("username", null);
         //editor.commit();
+        createGroups();
 
         this.username = mPrefs.getString("username", null);
         if(username == null){
@@ -78,23 +83,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     });
             alert.create().show();
-        }
-        if(this.username == null){
-            TextView myAwesomeTextView = (TextView)findViewById(R.id.username);
-            myAwesomeTextView.setText("Welcome StudyBuddy, ");
+            Gson gson = new Gson();
+            String json = mPrefs.getString("MyObject", "");
+            Type listType = new TypeToken<ArrayList<Group>>() {}.getType();
+            this.currentUser = new User(username);
+            ArrayList<Group> insert = ((ArrayList<Group>) gson.fromJson(json, listType));
+            for(Group g: insert){
+                currentUser.addFavorite(groups.getGroupByName(g.name));
+            }
+            currentUser.c = 1;
+
+            //Toast.makeText(this, currentUser.getName(), Toast.LENGTH_LONG).show();
+            TextView myAwesomeTextView = (TextView) findViewById(R.id.username);
+
+            myAwesomeTextView.setText("Welcome StudyBuddy, " + currentUser.getName());
+
         }else {
             TextView myAwesomeTextView = (TextView) findViewById(R.id.username);
-            myAwesomeTextView.setText("Welcome StudyBuddy, " + this.username);
+
+            myAwesomeTextView.setText("Welcome StudyBuddy, " + currentUser.getName());
         }
-        //Toast.makeText(this, this.username, Toast.LENGTH_LONG).show();
+
+
+        //Toast.makeText(this, "Right HERE!", Toast.LENGTH_LONG).show();
 
         //create dummy groups
-        createGroups();
 
-        //create dummy user until login popup complete
-        if(currentUser == null) {
-            createDummyUser();
-        }
+
         //set list of buttons to groups
         updateAvailableGroups(groups.getGroupArrayList());
 
@@ -126,9 +141,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Gets the inputed username from the user.
      */
     void showDialog() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        AlertDialog.Builder b = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         b.setTitle("Please enter a permanent username: ");
         final EditText input = new EditText(this);
+        input.setTextColor(getResources().getColor(R.color.white));
         b.setView(input);
         b.setPositiveButton("Set", new DialogInterface.OnClickListener() {
             @Override
@@ -150,8 +166,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.username = mPrefs.getString("username", null);
         TextView myAwesomeTextView = (TextView)findViewById(R.id.username);
         myAwesomeTextView.setText("Welcome StudyBuddy, " + this.username);
+        createDummyUser();
+
 
     }
+
     /**
      * Hard code some groups
      */
@@ -173,13 +192,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void createDummyUser(){
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        User newUser = new User(mPrefs.getString("username",""));
+        mPrefs = getPreferences(MODE_PRIVATE);
+        User newUser = new User(mPrefs.getString("username", ""));
+
         currentUser = newUser;
         currentUser.addFavorite(groups.get(3));
         currentUser.addFavorite(groups.get(6));
         currentUser.addFavorite(groups.get(9));
         currentUser.c = 3;
+
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+
+        String json = gson.toJson(currentUser.getFavorites());
+        prefsEditor.putString("MyObject", json);
+        prefsEditor.commit();
     }
 
     @Override

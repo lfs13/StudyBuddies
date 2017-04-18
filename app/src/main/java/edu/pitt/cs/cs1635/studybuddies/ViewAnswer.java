@@ -3,16 +3,23 @@ package edu.pitt.cs.cs1635.studybuddies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Dialog;
+import android.support.v7.app.AlertDialog;
 import android.widget.RatingBar;
+import android.support.v7.app.ActionBar.LayoutParams;
+import android.view.LayoutInflater;
+import android.content.DialogInterface;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -116,6 +123,9 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
                 tempButton.setClickable(true);
                 tempButton.setFocusable(true);
                 tempButton.setOnClickListener(this);
+                tempButton.setGravity(Gravity.LEFT);
+                tempButton.setHeight(30);
+                tempButton.setTextSize(20);
 
             }
         }
@@ -214,7 +224,7 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
         String ratingStat = "The rating is " + rating;
         Toast.makeText(this, ratingStat, Toast.LENGTH_SHORT).show();
         GroupAnswer answer = updatedAnswers.get(cur_index);
-        answer.setRanked(true);
+        answer.setRankedBy(MainActivity.currentUser.getName());
         answer.addRank(rating);
         //System.out.println(updatedAnswers.get(cur_index).getAnswer());
         //System.out.println("RIGHT HERHEHERHERHER! " + answer.getRank());
@@ -244,30 +254,47 @@ public class ViewAnswer extends AppCompatActivity implements View.OnClickListene
                 viewText = viewText.split("\u2605 ")[1];
 
                 if(candidateBtnText.equals(viewText)){
-                    //System.out.println("Here");
-                    /**
-                     * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
-                     */
-                    final Dialog rankDialog = new Dialog(v.getContext(), R.style.FullHeightDialog);
-                    rankDialog.setContentView(R.layout.rank_dialog);
-                    rankDialog.setCancelable(true);
-                    ratingBar = (RatingBar)rankDialog.findViewById(R.id.dialog_ratingbar);
-                    ratingBar.setRating(3);
+                    if(!(a.isRankedBy(MainActivity.currentUser.getName()))){
+                        //System.out.println("Here");
+                        /**
+                         * NAVIGATE TO A QUESTION PAGE TO BE IMPLEMENTED
+                         */
+                        final Dialog rankDialog = new Dialog(v.getContext(), R.style.FullHeightDialog);
+                        rankDialog.setContentView(R.layout.rank_dialog);
+                        rankDialog.setCancelable(true);
+                        ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialog_ratingbar);
+                        ratingBar.setRating(3);
 
-                    TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
-                    text.setText(a.getAnswer());
-                    cur_index = count;
-                    Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
-                    updateButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            setRating();
-                            rankDialog.dismiss();
-                        }
-                    });
-                    //now that the dialog is set up, it's time to show it
-                    rankDialog.show();
-                    break;
+                        TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+                        text.setText(a.getAnswer());
+                        cur_index = count;
+                        Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+                        updateButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                setRating();
+                                rankDialog.dismiss();
+                            }
+                        });
+                        //now that the dialog is set up, it's time to show it
+                        rankDialog.show();
+                        break;
+                    }else{
+                        LayoutInflater inflater= LayoutInflater.from(this);
+                        View view=inflater.inflate(R.layout.display_answer, null);
+
+                        TextView textview=(TextView)view.findViewById(R.id.textmsg);
+                        textview.setText(a.getAnswer());
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                        alertDialog.setTitle("Already Ranked");
+                        alertDialog.setView(view);
+                        alertDialog.setPositiveButton("OK", null);
+                        AlertDialog alert = alertDialog.create();
+                        alert.show();
+                        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                        pbutton.setBackgroundColor(Color.parseColor("#D4AF37"));
+                        alert.getWindow().setBackgroundDrawableResource(android.R.color.black);
+                    }
                 }
 
 
