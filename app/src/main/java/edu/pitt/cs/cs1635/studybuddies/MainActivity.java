@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Objects;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.stephentuso.welcome.WelcomeHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public static User currentUser;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static int count = 0;
     protected static SharedPreferences mPrefs;
     private static boolean showMessage = true;
+    WelcomeHelper welcomeScreen;
+
 
 
     @Override
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.username = mPrefs.getString("username", null);
         if(username == null){
             //first time user - ask for username
+            welcomeScreen = new WelcomeHelper(this, MyWelcomeActivity.class);
+            welcomeScreen.forceShow();
             showDialog();
             showMessage = false;
         } else if(showMessage) {
