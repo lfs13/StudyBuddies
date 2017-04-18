@@ -25,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textSize="24dp"
-        android:text="Groups"
+        android:text="Classes"
         android:textColor="@color/text_color"
         android:gravity="center_horizontal"
         />
@@ -48,6 +48,7 @@
         <EditText
             android:id="@+id/search"
             android:layout_width="0dp"
+            android:backgroundTint="@color/colorAccent"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:imeOptions="actionDone"

@@ -100,7 +100,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     .show();
         }
         else {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage("Are you sure you want to create this group?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

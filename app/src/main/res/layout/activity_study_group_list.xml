@@ -38,6 +38,7 @@
         <EditText
             android:id="@+id/search"
             android:inputType="text"
+            android:backgroundTint="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"

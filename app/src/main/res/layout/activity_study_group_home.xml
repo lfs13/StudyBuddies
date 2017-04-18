@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:imeOptions="actionDone"
         android:inputType="text"
+        android:backgroundTint="@color/colorAccent"
         android:layout_gravity="center"
         android:text="Type message here..." />
 
