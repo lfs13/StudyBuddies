@@ -22,6 +22,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     private ImageButton favoriteButton;
     private static Group group;
     private static User user;
+    private static GroupList allGroups;
     //private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>() ;
     private TextView groupNameDisp;
     private TextView numMemsDisp;
@@ -99,6 +100,8 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
                 favorites.add(g.toString());
             }
             intent.putExtra("favorites", favorites);
+            intent.putExtra("user", user);
+            intent.putExtra("groups", allGroups);
             startActivity(intent);
             return true;
         }
@@ -119,6 +122,8 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     public static void setGroup(Group currentGroup) {
         group = currentGroup;
     }
+
+    public static  void setAllGroups(GroupList a){allGroups = a;}
 
     //public static void setStudyGroupList(ArrayList<GroupQuestion> qList){ currQuestionList = qList;}
 
@@ -188,7 +193,8 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     public void onBackPressed() {
         Intent intent = new Intent();
         intent.putExtra("user",user);
-        setResult(2,intent);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }
 
