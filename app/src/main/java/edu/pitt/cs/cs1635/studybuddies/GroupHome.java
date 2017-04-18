@@ -27,7 +27,7 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
     private ImageButton favoriteButton;
     private static Group group;
     private static User user;
-    private static GroupList allGroups;
+    protected static GroupList allGroups;
     //private static ArrayList<GroupQuestion> currQuestionList = new ArrayList<>() ;
     private TextView groupNameDisp;
     private TextView numMemsDisp;
@@ -145,7 +145,6 @@ public class GroupHome extends AppCompatActivity implements View.OnClickListener
 
             StudyGroupList sGL = new StudyGroupList();
             sGL.setStudyGroupList(group.getStudyGroupList());
-            sGL.setUser(user);
             sGL.setGroup(group);
 
             startActivity(intent);

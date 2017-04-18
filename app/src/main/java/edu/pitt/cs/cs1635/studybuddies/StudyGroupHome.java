@@ -40,7 +40,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        user = (User) i.getSerializableExtra("user");
+        user = MainActivity.currentUser;
         String namePrint = (String) i.getSerializableExtra("name");
         String floorPrint = (String) i.getSerializableExtra("floor");
         String durationPrint = (String) i.getSerializableExtra("duration");
@@ -113,6 +113,8 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
             for (Group g : user.getFavorites()) {
                 favorites.add(g.toString());
             }
+            intent.putExtra("user", user);
+            intent.putExtra("groups", GroupHome.allGroups);
             intent.putExtra("favorites", favorites);
             startActivity(intent);
             return true;
