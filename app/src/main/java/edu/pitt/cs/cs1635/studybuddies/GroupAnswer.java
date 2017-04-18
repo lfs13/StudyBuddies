@@ -29,9 +29,20 @@ public class GroupAnswer implements Serializable {
     private double total = 3;
     private double count = 1;
 
+    private ArrayList<String> names = new ArrayList<String>();
 
     //setters
 
+    public void setRankedBy(String name){
+        names.add(name);
+    }
+
+    public boolean isRankedBy(String name){
+        if(names.contains(name)){
+            return true;
+        }
+        return false;
+    }
     public void setRanked(boolean answered) {
         this.ranked = answered;
     }

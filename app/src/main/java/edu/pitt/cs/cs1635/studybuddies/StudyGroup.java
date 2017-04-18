@@ -2,9 +2,6 @@ package edu.pitt.cs.cs1635.studybuddies;
 
 import java.io.Serializable;
 
-/**
- * Created by Emily on 3/17/17.
- */
 public class StudyGroup implements Serializable {
     private String name;
     private String time;
@@ -17,7 +14,8 @@ public class StudyGroup implements Serializable {
     public StudyGroup(String n) {
         name = n;
         time = "2";
-        floor = "3";
+        floor = "Hillman Library, Floor 3";
+        duration = "3";
     }
     public StudyGroup(String n, String f, String t, String d) {
         name = n;

@@ -21,6 +21,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
     private static ArrayList<StudyGroup> currStudyGroupList = new ArrayList<>();
     private static User user;
+
     private static Group group;
     //private static int counter = 0;
 
@@ -28,6 +29,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_group_list);
+        user = MainActivity.currentUser;
 
         //create dummy studyGroups
         createDummyStudyGroups();
@@ -36,7 +38,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
         updateAvailableStudyGroups(currStudyGroupList);
 
         //set up the dummy group buttons
-      //  setDummyStudyGroupButtons();
+        //setDummyStudyGroupButtons();
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -76,7 +78,10 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
             for (Group g : user.getFavorites()) {
                 favorites.add(g.toString());
             }
+            intent.putExtra("user", user);
+            intent.putExtra("groups", GroupHome.allGroups);
             intent.putExtra("favorites", favorites);
+
             startActivity(intent);
             return true;
         }
@@ -88,9 +93,9 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
-        public static void setUser(User currentUser) {
-            user = currentUser;
-        }
+        //public static void setUser(User currentUser) {
+            //user = currentUser;
+        //}
 
         public static void setStudyGroupList(ArrayList<StudyGroup> qList){ currStudyGroupList = qList;}
 
@@ -100,7 +105,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
 
 
-    /**
+        /**
          * Hard code some questions
          */
         public void createDummyStudyGroups(){
@@ -191,6 +196,10 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                     if(candidateBtnText.equals(viewText)){
 
                         Intent intent = new Intent(this, StudyGroupHome.class);
+                        intent.putExtra("user", user);
+                        intent.putExtra("name", g.getName());
+                        intent.putExtra("floor", g.getFloor());
+                        intent.putExtra("duration", g.getDuration());
                         startActivity(intent);
 
                     }

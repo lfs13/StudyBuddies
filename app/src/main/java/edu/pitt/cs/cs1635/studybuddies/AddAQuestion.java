@@ -57,9 +57,9 @@ public class AddAQuestion extends AppCompatActivity {
     public void confirmCreateQuestion(View v){
         final EditText question   = (EditText)findViewById(R.id.group_name);
         String groupString = question.getText().toString();
-        if(!groupString.endsWith("?")){
-            question.append("?");
-        }
+//        if(!groupString.endsWith("?")){
+//            question.append("?");
+//        }
 
        // else {
             new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
