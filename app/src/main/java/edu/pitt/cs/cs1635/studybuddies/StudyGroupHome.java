@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -50,11 +51,8 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
 
 
         studyGroupName.setText("Homework Help");
-        floor.setText("Floor 3");
+        floor.setText("Hillman Library, Floor 3");
         timeRemaining.setText("2 hours remaining");
-        //chatText = chatText + "User1 has joined Homework Help" + current.getName() + "\n" + current.getDuration();
-        chat.setText(chatText);
-        chat.setMovementMethod(new ScrollingMovementMethod());
 
         //set onClick listeners for the buttons
         submitButton.setOnClickListener(StudyGroupHome.this);
@@ -75,6 +73,9 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
                     }
                 }
         );
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
     }
 
     @Override

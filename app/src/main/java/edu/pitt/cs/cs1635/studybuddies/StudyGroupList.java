@@ -36,7 +36,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
         updateAvailableStudyGroups(currStudyGroupList);
 
         //set up the dummy group buttons
-      //  setDummyStudyGroupButtons();
+        //setDummyStudyGroupButtons();
 
         final EditText search = (EditText) findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
@@ -100,7 +100,7 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
 
 
 
-    /**
+        /**
          * Hard code some questions
          */
         public void createDummyStudyGroups(){
