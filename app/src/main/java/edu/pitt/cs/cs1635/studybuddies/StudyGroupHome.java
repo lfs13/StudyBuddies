@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class StudyGroupHome extends AppCompatActivity implements View.OnClickListener{
 
+    private static User user;
     private Button submitButton;
     private TextView studyGroupName;
     private TextView floor;
@@ -26,7 +27,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
     private TextView chat;
     private EditText submitChat;
     private String chatText = " ";
-    StudyGroup current;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
+        user = (User) i.getSerializableExtra("user");
         String namePrint = (String) i.getSerializableExtra("name");
         String floorPrint = (String) i.getSerializableExtra("floor");
         String durationPrint = (String) i.getSerializableExtra("duration");
@@ -50,7 +52,10 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         studyGroupName = (TextView) findViewById(R.id.studyGroupNameHeader);
         floor = (TextView) findViewById(R.id.floor);
         timeRemaining = (TextView) findViewById(R.id.timeRemaining);
+        chatText = chatText + user + " has joined " + namePrint;
         chat = (TextView) findViewById(R.id.chat);
+        chat.setText(chatText);
+
         submitChat = (EditText) findViewById(R.id.submitChat);
         submitButton = (Button) findViewById(R.id.submitButton);
 
@@ -102,16 +107,16 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         if (id == R.id.action_settings) {
             return true;
         }
-//        if (id == R.id.fav_button) {
-//            Intent intent = new Intent(this, FavoritesActivity.class);
-//            ArrayList<String> favorites = new ArrayList<>();
-//            for (Group g : user.getFavorites()) {
-//                favorites.add(g.toString());
-//            }
-//            intent.putExtra("favorites", favorites);
-//            startActivity(intent);
-//            return true;
-//        }
+        if (id == R.id.fav_button) {
+            Intent intent = new Intent(this, FavoritesActivity.class);
+            ArrayList<String> favorites = new ArrayList<>();
+            for (Group g : user.getFavorites()) {
+                favorites.add(g.toString());
+            }
+            intent.putExtra("favorites", favorites);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.home_button) {
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
