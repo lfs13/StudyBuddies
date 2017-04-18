@@ -123,7 +123,7 @@ public class CreateStudyGroupActivity extends AppCompatActivity {
         }
     }
     public void cancelAction(View v){
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage("Are you sure you want to cancel create a study group?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
