@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Gets the inputed username from the user.
      */
     void showDialog() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        AlertDialog.Builder b = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         b.setTitle("Please enter a permanent username: ");
         final EditText input = new EditText(this);
         b.setView(input);
