@@ -3,7 +3,6 @@ package edu.pitt.cs.cs1635.studybuddies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +28,6 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
     private String chatText = " ";
     StudyGroup current;
 
-    Intent inIntent = getIntent();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
@@ -41,6 +38,14 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent i = getIntent();
+        String namePrint = (String) i.getSerializableExtra("name");
+        String floorPrint = (String) i.getSerializableExtra("floor");
+        String durationPrint = (String) i.getSerializableExtra("duration");
+
+
+        //GroupQuestion question = (GroupQuestion) i.getSerializableExtra("sampleObject");
+
         //set the buttons to correspond to the correct ids
         studyGroupName = (TextView) findViewById(R.id.studyGroupNameHeader);
         floor = (TextView) findViewById(R.id.floor);
@@ -50,9 +55,9 @@ public class StudyGroupHome extends AppCompatActivity implements View.OnClickLis
         submitButton = (Button) findViewById(R.id.submitButton);
 
 
-        studyGroupName.setText("Homework Help");
-        floor.setText("Hillman Library, Floor 3");
-        timeRemaining.setText("2 hours remaining");
+        studyGroupName.setText(namePrint);
+        floor.setText("Location: " + floorPrint);
+        timeRemaining.setText("Time Remaining: " + durationPrint + " hours");
 
         //set onClick listeners for the buttons
         submitButton.setOnClickListener(StudyGroupHome.this);

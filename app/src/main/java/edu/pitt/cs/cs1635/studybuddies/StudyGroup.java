@@ -14,7 +14,8 @@ public class StudyGroup implements Serializable {
     public StudyGroup(String n) {
         name = n;
         time = "2";
-        floor = "3";
+        floor = "Hillman Library, Floor 3";
+        duration = "3";
     }
     public StudyGroup(String n, String f, String t, String d) {
         name = n;

@@ -191,6 +191,9 @@ public class StudyGroupList extends AppCompatActivity implements View.OnClickLis
                     if(candidateBtnText.equals(viewText)){
 
                         Intent intent = new Intent(this, StudyGroupHome.class);
+                        intent.putExtra("name", g.getName());
+                        intent.putExtra("floor", g.getFloor());
+                        intent.putExtra("duration", g.getDuration());
                         startActivity(intent);
 
                     }
