@@ -54,7 +54,7 @@
         <activity
             android:name=".AnswerQuestion"
             android:label="Answer_Question"
-            android:parentActivityName=".GroupQuestionListActivity" >
+            android:parentActivityName=".GroupQuestionListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.GroupQuestionListActivity" />
@@ -62,7 +62,7 @@
         <activity
             android:name=".ViewAnswer"
             android:label="View_Answer"
-            android:parentActivityName=".AnswerQuestionListActivity" >
+            android:parentActivityName=".AnswerQuestionListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.AnswerQuestionListActivity" />
@@ -83,7 +83,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.pitt.cs.cs1635.studybuddies.StudyGroupList" />
         </activity>
-
+        <activity android:name=".AddAQuestion"></activity>
     </application>
 
 </manifest>

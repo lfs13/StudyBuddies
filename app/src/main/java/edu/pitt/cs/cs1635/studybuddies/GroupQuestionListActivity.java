@@ -1,8 +1,10 @@
 package edu.pitt.cs.cs1635.studybuddies;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -106,7 +108,7 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
      */
     public void createQuestions(){
         if(group.c2 <= 0){
-            currQuestionList.add(new GroupQuestion("Why is the sky blue?"));
+            currQuestionList.add(new GroupQuestion("Why is the sky blue"));
             currQuestionList.add(new GroupQuestion("What is the meaning of life"));
             group.c2++;
         }
@@ -131,6 +133,7 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
                 tempButton.setText(tempGroupQ.getQuestion());
                 tempButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 qList.addView(tempButton);
+                setDummyQuestionButtons();
             }
         }
     }
@@ -223,6 +226,30 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
 
             }
         }
+        else if (requestCode == 3) {
+            if (resultCode == RESULT_OK) {
+                Bundle b = data.getExtras();
+                if(b != null) {
+                    GroupQuestion newQ = (GroupQuestion) b.getSerializable("newGroup");
+                    //groups.add(newGroup);
+                   // group.addQuestion(newQ);
+                    currQuestionList.add(newQ);
+                    updateAvailableQuestions(currQuestionList);
+                    setDummyQuestionButtons();
+                    new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage("New Question Asked!")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+
+                            })
+                            .show();
+                }
+            }
+        }
     }
 
     public void updateAnswered(){
@@ -245,13 +272,57 @@ public class GroupQuestionListActivity extends AppCompatActivity implements View
     /**
      * ADD A QUESTION PAGE TO BE IMPLEMENTED
      */
-    public void addGroup(View v){
+//    public void addGroup(View v){
+//        //this is the add buttons onCLick method as defined in main_activity.xml
+//        Intent createGroup = new Intent(this, GroupQuestionListActivity.class);
+//        startActivityForResult(createGroup, 1);
+//     //   startActivity(createGroup);
+//
+//    }
+
+    /**
+     * to be implemented
+     * bring up form with group elements, pass into constructor(will need to add one with all relevant parameters)
+     */
+    public void addQuestion(View v){
         //this is the add buttons onCLick method as defined in main_activity.xml
-        Intent createGroup = new Intent(this, GroupQuestionListActivity.class);
-       // startActivityForResult(createGroup, 1);
-        startActivity(createGroup);
+        Intent createQ = new Intent(this, AddAQuestion.class);
+        startActivityForResult(createQ, 3);
 
     }
+
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == 3) {
+//            if (resultCode == 3) {
+//                Bundle b = data.getExtras();
+//                if(b != null) {
+//                    GroupQuestion newQ = (GroupQuestion) b.getSerializable("newGroup");
+//                    //groups.add(newGroup);
+//                    group.addQuestion(newQ);
+//                    //updateAvailableGroups(groups.getGroupArrayList());
+//                    //setDummyGroupButtons();
+//                    new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle)
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setMessage("New Question Asked!")
+//                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                }
+//
+//                            })
+//                            .show();
+//                }
+//            }
+//        }
+//        else if(requestCode == 2){
+//            if(resultCode == 1){
+//                Bundle b = data.getExtras();
+//                if(b != null){
+//                    user = (User) b.getSerializable("user");
+//                }
+//            }
+//        }
 
 
 
